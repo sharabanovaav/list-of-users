@@ -1,0 +1,39 @@
+.employee {
+  padding: 20px;
+  max-width: 1700px;
+  margin: auto;
+  background: lightblue;
+  min-height: 100%;
+  box-sizing: border-box;
+
+  &__table {
+    width: 100%;
+    min-width: 900px;
+  }
+
+  &__table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  &__button {
+    margin-right: 10px;
+  }
+
+  &__image {
+    width: 40px;
+    height: auto;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__header-button {
+    height: fit-content;
+  }
+}

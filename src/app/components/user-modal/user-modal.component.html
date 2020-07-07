@@ -1,0 +1,24 @@
+<div class="modal">
+  <h1 class="admin-modal__title" mat-dialog-title>{{ data ? 'Редактировать' : 'Создать' }} сотрудника</h1>
+
+  <form [formGroup]="form" class="modal__form">
+    <mat-form-field class="modal__field">
+      <input matInput placeholder="Имя" formControlName="firstName" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field class="modal__field">
+      <input matInput placeholder="Фамилия" formControlName="lastName" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field class="modal__field">
+      <input matInput placeholder="Возраст" formControlName="age" autocomplete="off" type="number" min="0">
+    </mat-form-field>
+
+    <mat-form-field class="modal__field">
+      <input matInput placeholder="Почта" formControlName="email" autocomplete="off">
+    </mat-form-field>
+  </form>
+
+  <button class="modal__button" mat-stroked-button type="button" (click)="close()">Отменить</button>
+  <button class="modal__button" mat-stroked-button color="primary" type="submit" (click)="submit()">Сохранить</button>
+</div>

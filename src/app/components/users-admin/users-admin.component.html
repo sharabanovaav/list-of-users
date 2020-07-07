@@ -1,1 +1,83 @@
-<p>users-admin works!</p>
+<div class="employee">
+  <div class="employee__header">
+    <h1 class="employee__title">Список сотрудников</h1>
+    <button class="employee__header-button" mat-flat-button color="primary" (click)="openModal()"
+      (focus)="$event.target.blur()">Создать</button>
+  </div>
+
+  <mat-form-field class="employee__field">
+    <input matInput placeholder="Поиск по фамилии" [formControl]="lastNameFilter" autocomplete="off">
+  </mat-form-field>
+
+  <div class="employee__table-wrapper">
+    <table mat-table [dataSource]="dataSource" class="employee__table">
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef>#</th>
+        <td mat-cell *matCellDef="let item; let i = index;">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>
+          Аватар
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <img class="employee__image" src="assets/images/user.png" alt="Сотрудник">
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef>
+          Имя
+        </th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.name?.first }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>
+          Фамилия
+        </th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.name?.last }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef>
+          Возраст
+        </th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.age }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="aggregator">
+        <th mat-header-cell *matHeaderCellDef>
+          Агрегатор
+        </th>
+        <td mat-cell *matCellDef="let item">
+          {{ getAggregator(item) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          Действия
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <div>
+            <button mat-stroked-button class="employee__button" (click)="openModal(item)"
+              (focus)="$event.target.blur()">Редактировать</button>
+            <button mat-stroked-button class="employee__button" (click)="delete(item.guid)">Удалить</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
