@@ -1,11 +1,11 @@
-export interface User {
+export interface Employee {
   guid: string;
   age: number;
-  name: UserName;
+  name: EmployeeName;
   email: string;
 }
 
-interface UserName {
+interface EmployeeName {
   first: string;
   last: string;
 }

@@ -1,24 +1,24 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User } from 'src/app/model/user';
+import { Employee } from 'src/app/model/employee';
 import { NoWhitespaceValidator } from 'src/app/validators/no-whitespace.validator';
 
 /**
  * Модальное окно с формой создания / редактирования
  */
 @Component({
-  selector: 'app-user-modal',
-  templateUrl: './user-modal.component.html',
-  styleUrls: ['./user-modal.component.scss']
+  selector: 'app-employee-modal',
+  templateUrl: './employee-modal.component.html',
+  styleUrls: ['./employee-modal.component.scss']
 })
-export class UserModalComponent {
+export class EmployeeModalComponent {
 
   form: FormGroup;
 
   constructor(
-    private dialogRef: MatDialogRef<UserModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: User,
+    @Inject(MAT_DIALOG_DATA) public data: Employee,
+    private dialogRef: MatDialogRef<EmployeeModalComponent>,
     private fb: FormBuilder
   ) {
     this.initForm();

@@ -1,4 +1,4 @@
-export const USERS = [
+export const EMPLOYEES = [
   {
     "guid": "10e49a2b-0910-49a4-94aa-f29311fd0f79",
     "age": 37,

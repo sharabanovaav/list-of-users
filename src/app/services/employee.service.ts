@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { USERS } from '../mocks/users-list';
-import { User } from '../model/user';
+import { Employee } from '../model/employee';
+import { EMPLOYEES } from '../mocks/employees-list';
 
 /**
  * Сервис сотрудников
@@ -9,40 +9,40 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class EmployeeService {
-  users = USERS;
+  employees = EMPLOYEES;
 
   /**
    * Возвращает сотрудников
    */
-  get(filter?: string): User[] {
+  get(filter?: string): Employee[] {
     if (filter) {
-      return this.users.filter(user => user.name.last.toLowerCase().includes(filter.toLowerCase()));
+      return this.employees.filter(employee => employee.name.last.toLowerCase().includes(filter.toLowerCase()));
     }
 
-    return this.users;
+    return this.employees;
   }
 
   /**
    * Удаляет сотрудника по гуиду
    */
   delete(guid: string): void {
-    this.users = this.users.filter(user => user.guid !== guid);
+    this.employees = this.employees.filter(employee => employee.guid !== guid);
   }
 
   /**
    * Редактирует сотрудника
    */
-  edit(user: User): void {
-    const userIndex = this.users.findIndex(item => user.guid === item.guid);
-    this.users[userIndex] = user;
+  edit(employee: Employee): void {
+    const employeeIndex = this.employees.findIndex(item => employee.guid === item.guid);
+    this.employees[employeeIndex] = employee;
   }
 
   /**
    * Добавляет сотрудника
    */
-  create(user: User): void {
-    user.guid = this.generateGuid();
-    this.users.push(user);
+  create(employee: Employee): void {
+    employee.guid = this.generateGuid();
+    this.employees.push(employee);
   }
 
   /**

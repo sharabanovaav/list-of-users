@@ -1,28 +1,28 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from 'src/app/model/user';
+import { Employee } from 'src/app/model/employee';
 import { MatDialog } from '@angular/material/dialog';
-import { UserModalComponent } from '../user-modal/user-modal.component';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { EmployeeModalComponent } from '../employee-modal/employee-modal.component';
 
 /**
- * Список сотрудников
+ * Админка сотрудников
  */
 @Component({
-  selector: 'app-users-admin',
-  templateUrl: './users-admin.component.html',
-  styleUrls: ['./users-admin.component.scss']
+  selector: 'app-employees-admin',
+  templateUrl: './employees-admin.component.html',
+  styleUrls: ['./employees-admin.component.scss']
 })
-export class UsersAdminComponent implements OnInit, OnDestroy {
+export class EmployeesAdminComponent implements OnInit, OnDestroy {
 
-  lastNameFilter = new FormControl();
   displayedColumns = ['index', 'avatar', 'firstName', 'lastName', 'age', 'aggregator', 'actions'];
-  dataSource = new MatTableDataSource<User>([]);
+  dataSource = new MatTableDataSource<Employee>([]);
+  lastNameFilter = new FormControl();
 
-  private items: User[] = [];
+  private employees: Employee[] = [];
   private destroyed$: Subject<void> = new Subject();
 
   constructor(
@@ -31,7 +31,7 @@ export class UsersAdminComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getEmployees();
     this.subscribeToFilter();
   }
 
@@ -42,41 +42,41 @@ export class UsersAdminComponent implements OnInit, OnDestroy {
   /**
    * Возвращает агрегатор
    */
-  getAggregator(item: User): string {
+  getAggregator(item: Employee): string {
     return `${item.name.first[0]}.${item.name.last[0]}. - ${item.email}`;
   }
 
   /**
-   * Удаляет пользователя
+   * Удаляет сотрудника
    */
   delete(guid: string): void {
     this.employeeService.delete(guid);
-    this.getUsers();
+    this.getEmployees();
   }
 
   /**
-   * Открывает модальное окно создания / редактирования пользователя
+   * Открывает модальное окно создания / редактирования сотрудника
    */
-  openModal(data?: User): void {
-    this.dialog.open(UserModalComponent, {
+  openModal(data?: Employee): void {
+    this.dialog.open(EmployeeModalComponent, {
       panelClass: 'admin-modal',
       data
     })
       .afterClosed()
-      .subscribe(user => {
-        if (user) {
-          user.guid ? this.employeeService.edit(user) : this.employeeService.create(user);
-          this.getUsers();
+      .subscribe(employee => {
+        if (employee) {
+          employee.guid ? this.employeeService.edit(employee) : this.employeeService.create(employee);
+          this.getEmployees();
         }
       });
   }
 
   /**
-   * Загружает пользователей
+   * Загружает сотрудников
    */
-  private getUsers(): void {
-    this.items = this.employeeService.get(this.lastNameFilter.value);
-    this.dataSource.data = this.items;
+  private getEmployees(): void {
+    this.employees = this.employeeService.get(this.lastNameFilter.value);
+    this.dataSource.data = this.employees;
   }
 
   /**
@@ -86,7 +86,7 @@ export class UsersAdminComponent implements OnInit, OnDestroy {
     this.lastNameFilter.valueChanges
       .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {
-        this.getUsers();
+        this.getEmployees();
       });
   }
 }

@@ -17,12 +17,12 @@ install:
   - npm install
 
 script: 
-  - ng build --prod --base-href https://sharabanovaav.github.io/list-of-users/
+  - ng build --prod --base-href https://sharabanovaav.github.io/staff-admin/
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  local_dir: dist/list-of-users
+  local_dir: dist/staff-admin
   on:
     branch: master
